@@ -1,8 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "./src/generated/prisma"
@@ -12,22 +10,55 @@ datasource db {
   provider = "postgresql"
 }
 
+model Category {
+  name       String     @id @unique
+  parentName String?
+  parent     Category?  @relation("categories", fields: [parentName], references: [name])
+  children   Category[] @relation("categories")
+  companies  Company[]
+  invoices   Invoice[]
+}
+
 model DocType {
   name        String    @id @unique
   /// kierunek: true = zobowiązanie, false = należność
   is_outgoing Boolean
-  is_system   Boolean
+  is_system   Boolean @default(false)
   invoices    Invoice[]
 }
-model Company{
-  nip BigInt @id @unique
-  name String
-  adress String
-  
+
+model Company {
+  nip                 BigInt    @id @unique
+  name                String
+  adress              String
+  account_number      String
+  default_category    Category? @relation(fields: [defaultCategoryName], references: [name])
+  defaultCategoryName String?
+  invoices            Invoice[]
+}
+
+enum InvoiceSource {
+  KSEF
+  UPLOAD
+  MANUAL
 }
 
 model Invoice {
-  id          String  @id @unique
-  type        DocType @relation(fields: [docTypeName], references: [name])
-  docTypeName String
+  id               String    @id @unique
+  type             DocType   @relation(fields: [docTypeName], references: [name])
+  docTypeName      String
+  date             DateTime
+  contractor       Company   @relation(fields: [companyNip], references: [nip])
+  companyNip       BigInt
+  payment_deadline DateTime
+  netto_price      Decimal
+  vat              Decimal
+  brutto_price     Decimal
+  account_number   String
+  category         Category? @relation(fields: [categoryName], references: [name])
+  source InvoiceSource
+  ksef_id String?
+  attachment String?
+  accepted Boolean @default(false)
+  categoryName String?
 }
