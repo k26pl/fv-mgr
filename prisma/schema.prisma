@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "./src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model DocType {
+  name        String    @id @unique
+  /// kierunek: true = zobowiązanie, false = należność
+  is_outgoing Boolean
+  is_system   Boolean
+  invoices    Invoice[]
+}
+model Company{
+  nip BigInt @id @unique
+  name String
+  adress String
+  
+}
+
+model Invoice {
+  id          String  @id @unique
+  type        DocType @relation(fields: [docTypeName], references: [name])
+  docTypeName String
+}
