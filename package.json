@@ -2,13 +2,16 @@
   "name": "fv-mgr",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test":"node --env-file=.env --experimental-test-coverage --throw-deprecation --test"
   },
   "dependencies": {
+    "@backblaze-labs/b2-sdk": "^0.2.0",
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/server": "^11.11.0",
