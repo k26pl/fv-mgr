@@ -30,6 +30,7 @@ export function useUploadFiles() {
     setErrors([]);
     const input = document.createElement("input");
     input.type = "file";
+    input.accept = ".pdf,.xml";
     input.multiple = true;
 
     const errs: string[] = [];
