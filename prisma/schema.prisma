@@ -69,5 +69,7 @@ model UploadedFile {
   link           String
   uploadDate     DateTime @default(now())
   uploadError    Boolean
-  uploadFinished Boolean
+  uploadFinished Boolean  @default(false)
+  dataExtracted  Boolean  @default(false)
+
 }
