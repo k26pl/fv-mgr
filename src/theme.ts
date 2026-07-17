@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { createTheme } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
@@ -14,10 +14,13 @@ const theme = createTheme({
       dark: "#ba000d",
       contrastText: "#000",
     },
-    text:{
-        primary: "#ffffff"
-    }
+    text: {
+      primary: "#ffffff",
+      disabled: "#6d6d6dfff",
+    },
   },
+  cssVariables: true,
+  defaultColorScheme: "dark",
 });
 
 export default theme;
