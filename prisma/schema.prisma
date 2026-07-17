@@ -3,7 +3,7 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "./src/generated/prisma"
+  output   = "../src/prisma"
 }
 
 datasource db {
@@ -23,7 +23,7 @@ model DocType {
   name        String    @id @unique
   /// kierunek: true = zobowiązanie, false = należność
   is_outgoing Boolean
-  is_system   Boolean @default(false)
+  is_system   Boolean   @default(false)
   invoices    Invoice[]
 }
 
@@ -44,21 +44,30 @@ enum InvoiceSource {
 }
 
 model Invoice {
-  id               String    @id @unique
-  type             DocType   @relation(fields: [docTypeName], references: [name])
+  id               String        @id @unique
+  type             DocType       @relation(fields: [docTypeName], references: [name])
   docTypeName      String
   date             DateTime
-  contractor       Company   @relation(fields: [companyNip], references: [nip])
+  contractor       Company       @relation(fields: [companyNip], references: [nip])
   companyNip       BigInt
   payment_deadline DateTime
   netto_price      Decimal
   vat              Decimal
   brutto_price     Decimal
   account_number   String
-  category         Category? @relation(fields: [categoryName], references: [name])
-  source InvoiceSource
-  ksef_id String?
-  attachment String?
-  accepted Boolean @default(false)
-  categoryName String?
+  category         Category?     @relation(fields: [categoryName], references: [name])
+  source           InvoiceSource
+  ksef_id          String?
+  attachment       String?
+  accepted         Boolean       @default(false)
+  categoryName     String?
+}
+
+model UploadedFile {
+  id             String   @id @unique
+  fileName       String
+  link           String
+  uploadDate     DateTime @default(now())
+  uploadError    Boolean
+  uploadFinished Boolean
 }
