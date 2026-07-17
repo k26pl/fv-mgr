@@ -26,7 +26,6 @@ export async function POST(req: Request) {
       data: urls.map((f) => ({
         id: f.id,
         fileName: f.name,
-        link: f.link,
         uploadError: false,
         uploadFinished: false,
       })),
