@@ -38,10 +38,10 @@ export default function NowyDokument() {
       </Box>
       <Box sx={{ textAlign: "center", color: "#ff4646", fontSize: "20px" }}>
         {errors.map((er, i) => (
-          <>
-            {i > 0 && <br key={i} />}
+          <span key={i}>
+            {i > 0 && <br />}
             {er}
-          </>
+          </span>
         ))}
       </Box>
       <Box>
@@ -70,7 +70,7 @@ export default function NowyDokument() {
           }
           return (
             <Box
-              key={i}
+              key={file.name}
               sx={{
                 backgroundColor: `var(--mui-palette-${color}-main)`,
                 borderRadius: "10px",
