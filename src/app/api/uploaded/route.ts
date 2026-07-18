@@ -1,30 +1,24 @@
 import * as z from "zod";
+import { getDownloadLink } from "@/backend/b2";
 import { prisma } from "@/backend/db";
 
-const UploadReq = z.object({
-  files: z.array(
-    z.object({
-      id: z.string(),
-    }),
-  ),
-});
-
-export async function POST(req: Request) {
+export async function GET(req: Request) {
   try {
-    const json = await req.json();
-    const data = UploadReq.parse(json);
-    prisma.uploadedFile.updateManyAndReturn({
-      data: {
-        uploadFinished: true,
-      },
+    let files = await prisma.uploadedFile.findMany({
       where: {
-        id: {
-          in: data.files.map((e) => e.id),
-        },
+        dataExtracted: false,
       },
     });
+    let data = await Promise.all(
+      files.map(async (f) => ({
+        name: f.fileName,
+        link: await getDownloadLink(f.id),
+        id: f.id,
+        date: f.uploadDate.toISOString(),
+      })),
+    );
 
-    return new Response(JSON.stringify({ ok: true }));
+    return new Response(JSON.stringify(data));
   } catch (err) {
     if (err instanceof z.ZodError) {
       console.error(`request data validation failed:`, err.issues);

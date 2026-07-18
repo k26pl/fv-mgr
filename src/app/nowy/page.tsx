@@ -6,9 +6,35 @@ import { useUploadFiles, UploadStatus, FileType } from "./fileUploader";
 import FilePresentIcon from "@mui/icons-material/FilePresent";
 import ErrorIcon from "@mui/icons-material/Error";
 import CodeIcon from "@mui/icons-material/Code";
+import { useEffect, useState } from "react";
+import TextField from "@mui/material/TextField";
+import Autocomplete from "@mui/material/Autocomplete";
+
+type SentInvoice = {
+  name: string;
+  link: string;
+  id: string;
+  date: string;
+};
 
 export default function NowyDokument() {
   const { start, errors, inUpload, finished, uploading } = useUploadFiles();
+  const [sentLoading, setSentLoading] = useState(true);
+  const [sentOk, setSentOk] = useState(false);
+  const [invoices, setInvoices] = useState<SentInvoice[]>([]);
+  useEffect(() => {
+    fetch("/api/uploaded").then((res) => {
+      if (res.ok) {
+        setSentOk(true);
+        res.json().then((j: SentInvoice[]) => {
+          setInvoices(j);
+        });
+      } else {
+        setSentLoading(false);
+        setSentOk(false);
+      }
+    });
+  }, [finished]);
   return (
     <>
       <Box
@@ -84,6 +110,39 @@ export default function NowyDokument() {
             </Box>
           );
         })}
+      </Box>
+      <Box>
+        l: {sentLoading}
+        ok:{sentOk}
+        {invoices.map((inv) => (
+          <div style={{ display: "flex", flexDirection: "row" }} key={inv.id}>
+            <div
+              style={{
+                width: "50%",
+              }}>
+              {inv.date}
+              <br />
+              {inv.id}
+              <br />
+              {inv.name}
+              <br />
+              <TextField fullWidth={true} label='asdf'></TextField>
+              <Autocomplete
+                options={["a", "b", "c"]}
+                renderInput={(params) => {
+                  console.log(params);
+                  return <TextField {...params} label='Movie' />;
+                }}></Autocomplete>
+            </div>
+
+            <iframe
+              src={inv.link}
+              style={{
+                width: "50%",
+                minHeight: "500px",
+              }}></iframe>
+          </div>
+        ))}
       </Box>
     </>
   );
