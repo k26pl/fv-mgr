@@ -2,14 +2,14 @@ import { test } from "node:test";
 import { _getFromNip } from "./vatwl.ts";
 
 test("fetch valid company", async (t) => {
-  let data = await _getFromNip("5342491417");
+  let data = await _getFromNip("7791011327");
   t.diagnostic(JSON.stringify(data));
   if (!data.ok) {
     throw new Error(`Received error: ${data.error}`);
   }
-  t.assert.equal(data.name, "KOMAN.AI SPÓŁKA Z OGRANICZONĄ ODPOWIEDZIALNOŚCIĄ");
-  t.assert.equal(data.accountNumbers[0], "38253000082090107933110001");
-  t.assert.equal(data.accountNumbers.length, 1);
+  t.assert.equal(data.name, "JERONIMO MARTINS POLSKA SPÓŁKA AKCYJNA");
+  t.assert.equal(data.accountNumbers[0], "06103015080000000500651008");
+  t.assert.equal(data.accountNumbers.length, 70);
 });
 
 test("Invalid NIP throws error", async (t) => {
