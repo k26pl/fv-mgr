@@ -38,8 +38,11 @@ model Company {
 }
 
 enum InvoiceSource {
+  /// Downloaded from KSEF
   KSEF
+  /// Uploaded XML FA2 / FA3 file
   UPLOAD
+  /// Uploaded Pdf file
   MANUAL
 }
 
