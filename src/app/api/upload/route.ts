@@ -22,12 +22,14 @@ export async function POST(req: Request) {
         name: file.name,
       })),
     );
-    prisma.uploadedFile.createMany({
+    await prisma.uploadedFile.createMany({
       data: urls.map((f) => ({
         id: f.id,
         fileName: f.name,
         uploadError: false,
         uploadFinished: false,
+        dataExtracted: false,
+        uploadDate: new Date(),
       })),
     });
 
