@@ -31,7 +31,7 @@ model Company {
   nip                 BigInt    @id @unique
   name                String
   adress              String
-  account_number      String
+  account_number      String[]
   default_category    Category? @relation(fields: [defaultCategoryName], references: [name])
   defaultCategoryName String?
   invoices            Invoice[]
