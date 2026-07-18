@@ -25,36 +25,37 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`h-full antialiased`}>
-      <body className="min-h-full flex flex-col">
+    <html lang='en' className={`h-full antialiased`}>
+      <body className='min-h-full flex flex-col'>
         <StrictMode>
           <AppRouterCacheProvider>
             <ThemeProvider theme={theme}>
-              <AppBar position="static">
+              <AppBar position='static'>
                 <Toolbar>
                   <ButtonLink
-                    href="/"
-                    sx={{ my: 2, color: "white", display: "block" }}
-                  >
+                    href='/'
+                    sx={{ my: 2, color: "white", display: "block" }}>
                     Strona główna
                   </ButtonLink>
                   <ButtonLink
-                    href="/rejestr"
-                    sx={{ my: 2, color: "white", display: "block" }}
-                  >
+                    href='/rejestr'
+                    sx={{ my: 2, color: "white", display: "block" }}>
                     Rejestr dokumentów
                   </ButtonLink>
                   <ButtonLink
-                    href="/nowy"
-                    sx={{ my: 2, color: "white", display: "block" }}
-                  >
+                    href='/nowy'
+                    sx={{ my: 2, color: "white", display: "block" }}>
                     Nowy dokument
                   </ButtonLink>
                   <ButtonLink
-                    href="/kategorie"
-                    sx={{ my: 2, color: "white", display: "block" }}
-                  >
+                    href='/kategorie'
+                    sx={{ my: 2, color: "white", display: "block" }}>
                     Zarządzanie kategoriami
+                  </ButtonLink>
+                  <ButtonLink
+                    href='/kontrahenci'
+                    sx={{ my: 2, color: "white", display: "block" }}>
+                    Zarządzanie kontrahentami
                   </ButtonLink>
                 </Toolbar>
               </AppBar>
