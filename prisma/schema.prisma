@@ -77,3 +77,8 @@ model UploadedFile {
   invoice   Invoice? @relation(fields: [invoiceId], references: [id])
   invoiceId String?
 }
+
+model KsefSyncState {
+  companyNip   BigInt   @id
+  lastSyncedAt DateTime
+}
