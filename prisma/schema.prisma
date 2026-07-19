@@ -47,22 +47,22 @@ enum InvoiceSource {
 }
 
 model Invoice {
-  id               String        @id @unique
-  type             DocType       @relation(fields: [docTypeName], references: [name])
+  id               String         @id @unique
+  type             DocType        @relation(fields: [docTypeName], references: [name])
   docTypeName      String
   date             DateTime
-  contractor       Company       @relation(fields: [companyNip], references: [nip])
+  contractor       Company        @relation(fields: [companyNip], references: [nip])
   companyNip       BigInt
   payment_deadline DateTime
   netto_price      Decimal
   vat              Decimal
   brutto_price     Decimal
   account_number   String
-  category         Category?     @relation(fields: [categoryName], references: [name])
+  category         Category?      @relation(fields: [categoryName], references: [name])
   source           InvoiceSource
   ksef_id          String?
-  attachment       String?
-  accepted         Boolean       @default(false)
+  attachments      UploadedFile[]
+  accepted         Boolean        @default(false)
   categoryName     String?
 }
 
@@ -74,4 +74,6 @@ model UploadedFile {
   uploadFinished Boolean  @default(false)
   dataExtracted  Boolean  @default(false)
 
+  invoice   Invoice? @relation(fields: [invoiceId], references: [id])
+  invoiceId String?
 }
