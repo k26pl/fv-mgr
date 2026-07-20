@@ -84,7 +84,7 @@ model KsefSyncState {
 }
 
 
-//hour:minute format
+//hhmm format
 model SyncTimers{
   hour_min Int @id @unique
 }
