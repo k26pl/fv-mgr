@@ -82,3 +82,9 @@ model KsefSyncState {
   companyNip   BigInt   @id
   lastSyncedAt DateTime
 }
+
+
+//hour:minute format
+model SyncTimers{
+  hour_min Int @id @unique
+}
