@@ -17,6 +17,7 @@
     "@emotion/server": "^11.11.0",
     "@emotion/styled": "^11.14.1",
     "@fontsource/roboto": "^5.2.10",
+    "@mdab25/ksef-pdf": "^0.2.3",
     "@mui/icons-material": "^9.2.0",
     "@mui/material": "^9.2.0",
     "@mui/material-nextjs": "^9.1.1",
@@ -29,6 +30,7 @@
     "pg": "^8.22.0",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "xml-crypto": "^6.1.2",
     "zod": "^4.4.3"
   },
   "devDependencies": {
