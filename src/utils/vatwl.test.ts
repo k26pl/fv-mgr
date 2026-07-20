@@ -2,7 +2,7 @@ import { test } from "node:test";
 import { _getFromNip } from "./vatwl.ts";
 
 test("fetch valid company", async (t) => {
-  let data = await _getFromNip("7791011327");
+  const data = await _getFromNip("7791011327");
   t.diagnostic(JSON.stringify(data));
   if (!data.ok) {
     throw new Error(`Received error: ${data.error}`);
@@ -13,12 +13,12 @@ test("fetch valid company", async (t) => {
 });
 
 test("Invalid NIP throws error", async (t) => {
-  let d = await _getFromNip("1234");
+  const d = await _getFromNip("1234");
   t.assert.equal(d.ok, false);
 });
 
 test("Removed company throws error", async (t) => {
-  let d = await _getFromNip("5252822709");
+  const d = await _getFromNip("5252822709");
   t.assert.equal(d.ok, false);
 });
 
